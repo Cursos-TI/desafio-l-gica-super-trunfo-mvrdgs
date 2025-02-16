@@ -39,7 +39,7 @@ Card createCard(int cardNumber) {
     printf("Digite o Número de Pontos Turísticos: ");
     scanf("%d", &card.touristAttractionNumber);
 
-    getchar();
+    printf("\n");
 
     card.populationalDensity = card.population / card.area;
     card.pibPerCapita = card.pib / card.population;
@@ -100,14 +100,48 @@ void compareCards(Card card1, Card card2) {
     printf("\nO Super Poder da cidade %s é maior: %f\n", winner.city, winner.superPower);
 }
 
+int insertOption() {
+    int option;
+
+    printf("Digite a opção desejada:\n");
+    printf("1 - Cadastrar carta 1\n");
+    printf("2 - Cadastrar carta 2\n");
+    printf("3 - Comparar cartas\n");
+    printf("4 - Sair\n");
+    scanf("%d", &option);
+
+    return option;
+}
+
 int main() {
-    Card card1 = createCard(1);
-    printCard(card1);
+    int option;
+    Card card1;
+    Card card2;
 
-    Card card2 = createCard(2);
-    printCard(card2);
+    while (1) {
+        option = insertOption();
 
-    compareCards(card1, card2);
+        switch (option) {
+            case 1:
+                card1 = createCard(1);
+                break;
+            case 2:
+                card2 = createCard(2);
+                break;
+            case 3:
+                if (card1.superPower == 0 || card2.superPower == 0) {
+                    printf("Uma ou ambas as cartas não foram cadastradas!\n");
+                    break;
+                }
+                compareCards(card1, card2);
+                break;
+            case 4:
+                printf("Saindo do programa...\n");
+                return 0;
+            default:
+                printf("Opção inválida!\n");
+        }
+    }
     
     return 0;
 }
